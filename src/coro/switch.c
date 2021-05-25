@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <sys/mman.h>
 
-#include "coroutine/switch.h"
+#include "coro/switch.h"
 #include "util/system.h"
 
 __asm__(

@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "coroutine/sched.h"
-#include "coroutine/switch.h"
+#include "coro/sched.h"
+#include "coro/switch.h"
 #include "event.h"
 #include "internal.h"
 #include "util/list.h"

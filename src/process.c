@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "coroutine/sched.h"
+#include "coro/sched.h"
 #include "env.h"
 #include "event.h"
 #include "internal.h"

@@ -5,7 +5,7 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
-#include "coroutine/sched.h"
+#include "coro/sched.h"
 #include "event.h"
 #include "internal.h"
 #include "util/net.h"

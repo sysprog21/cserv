@@ -47,8 +47,8 @@ OBJS = \
 	src/http/parse.o \
 	src/http/request.o \
 	src/http/response.o \
-	src/coroutine/switch.o \
-	src/coroutine/sched.o \
+	src/coro/switch.o \
+	src/coro/sched.o \
 	src/env.o \
 	src/event.o \
 	src/signal.o \
