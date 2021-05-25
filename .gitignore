@@ -1,0 +1,7 @@
+*.o
+*.o.d
+
+# Generate files
+cserv
+cserv.pid
+cserv.log 

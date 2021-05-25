@@ -1,0 +1,73 @@
+.PHONY: all check clean
+TARGET = cserv
+GIT_HOOKS := .git/hooks/applied
+all: $(TARGET)
+
+$(GIT_HOOKS):
+	@scripts/install-git-hooks
+	@echo
+
+include common.mk
+
+CFLAGS = -I./src
+CFLAGS += -O2 -g
+CFLAGS += -std=gnu99 -Wall -W
+
+# Configurations
+CFLAGS += -D CONF_FILE="\"conf/cserv.conf\""
+CFLAGS += -D MASTER_PID_FILE="\"conf/cserv.pid\""
+CFLAGS += -D MAX_WORKER_PROCESS=64
+
+# Linux
+CPU_NUM=$(shell nproc)
+ifndef CPU_NUM
+# macOS
+CPU_NUM=$(shell sysctl -n hw.logicalcpu)
+endif
+ifdef CPU_NUM
+CFLAGS += -DCONFIG_SMP
+endif
+
+LDFLAGS = -ldl
+
+# standard build rules
+.SUFFIXES: .o .c
+.c.o:
+	$(VECHO) "  CC\t$@\n"
+	$(Q)$(CC) -o $@ $(CFLAGS) -c -MMD -MF $@.d $<
+
+OBJS = \
+	src/util/conf.o \
+	src/util/hashtable.o \
+	src/util/shm.o \
+	src/util/memcache.o \
+	src/util/rbtree.o \
+	src/util/system.o \
+	src/http/http.o \
+	src/http/parse.o \
+	src/http/request.o \
+	src/http/response.o \
+	src/coroutine/switch.o \
+	src/coroutine/sched.o \
+	src/env.o \
+	src/event.o \
+	src/signal.o \
+	src/logger.o \
+	src/process.o \
+	src/syscall_hook.o \
+	src/cserv.o
+
+deps += $(OBJS:%.o=%.o.d)
+
+$(TARGET): $(OBJS)
+	$(VECHO) "  LD\t$@\n"
+	$(Q)$(CC) -o $@ $^ $(LDFLAGS)
+
+check: all
+	@scripts/test.sh
+
+clean:
+	$(VECHO) "  Cleaning...\n"
+	$(Q)$(RM) $(TARGET) $(OBJS) $(deps)
+
+-include $(deps)
