@@ -26,7 +26,7 @@ __asm__(
     "pop %rbp\n"
     "pop %rcx\n"
     "jmp *%rcx\n"
-#elif defined(__i386)
+#elif defined(__i386__)
 #define NUM_SAVED 4
     "push %ebp\n"
     "push %ebx\n"
@@ -54,7 +54,7 @@ __asm__(
     "pop %rdi\n"
     "pop %rcx\n"
     "call *%rcx\n"
-#elif defined(__i386)
+#elif defined(__i386__)
     "pop %eax\n"
     "pop %ecx\n"
     "call *%ecx\n"
