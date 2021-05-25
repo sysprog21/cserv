@@ -18,16 +18,6 @@ CFLAGS += -D CONF_FILE="\"conf/cserv.conf\""
 CFLAGS += -D MASTER_PID_FILE="\"conf/cserv.pid\""
 CFLAGS += -D MAX_WORKER_PROCESS=64
 
-# Linux
-CPU_NUM=$(shell nproc)
-ifndef CPU_NUM
-# macOS
-CPU_NUM=$(shell sysctl -n hw.logicalcpu)
-endif
-ifdef CPU_NUM
-CFLAGS += -DCONFIG_SMP
-endif
-
 LDFLAGS = -ldl
 
 # standard build rules
