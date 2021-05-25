@@ -1,54 +1,50 @@
 #ifndef UTIL_SPINLOCK_H
 #define UTIL_SPINLOCK_H
 
+/* Ticket spinlock implementation */
+
 #include <sched.h>
+#include <stdatomic.h>
 
 typedef struct {
-    volatile int counter;
+    volatile unsigned int start;
+    char padding[64]; /* avoid false sharing between start and ticket */
+    _Atomic unsigned int ticket;
 } spinlock_t;
-
-#if defined(__x86_64__) || defined(__i386__)
-#define __cpu_yield() __asm__ volatile("pause")
-#else
-#define __cpu_yield()
-#endif
 
 static inline void spin_lock_init(spinlock_t *lock)
 {
-    lock->counter = 0;
+    lock->start = 0;
+    atomic_init(&lock->ticket, 0);
 }
 
 static inline int spin_trylock(spinlock_t *lock)
 {
-    return (lock->counter == 0 &&
-            __sync_bool_compare_and_swap(&lock->counter, 0, -1));
+    /* See which ticket is being served */
+    unsigned int ticket = lock->start;
+
+    /* Take a ticket, but only if it is being served already */
+    return atomic_compare_exchange_strong_explicit(
+        &lock->ticket, &ticket, ticket + 1U, memory_order_seq_cst,
+        memory_order_relaxed);
 }
 
 static inline void spin_lock(spinlock_t *lock)
 {
-    for (;;) {
-        if (lock->counter == 0 &&
-            __sync_bool_compare_and_swap(&lock->counter, 0, -1))
-            return;
+    unsigned int ticket =
+        atomic_fetch_add_explicit(&lock->ticket, 1, memory_order_relaxed);
 
-#ifdef CONFIG_SMP
-        for (int n = 1; n < 2048; n <<= 1) {
-            for (int i = 0; i < n; i++)
-                __cpu_yield();
-
-            if (lock->counter == 0 &&
-                __sync_bool_compare_and_swap(&lock->counter, 0, -1))
-                return;
-        }
-#endif
-
+    /* Wait until our ticket is being served */
+    while (lock->start != ticket)
         sched_yield();
-    }
+
+    atomic_thread_fence(memory_order_seq_cst);
 }
 
 static inline void spin_unlock(spinlock_t *lock)
 {
-    __sync_bool_compare_and_swap(&lock->counter, -1, 0);
+    atomic_thread_fence(memory_order_seq_cst);
+    lock->start++;
 }
 
 #endif
