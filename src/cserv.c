@@ -9,15 +9,16 @@
 #include "util/str.h"
 #include "util/system.h"
 
-static void usage()
+static void usage(const char *prog)
 {
     printf(
-        "Usage: cserv [command]\n"
+        "Usage: %s [command]\n"
         "command options:\n"
         "  conf  : check and show config file content\n"
         "  start : start the web server\n"
         "  stop  : stop accepting and wait for termination\n"
-        "  exit  : forcely exit\n");
+        "  exit  : forcely exit\n",
+        prog);
 }
 
 static void send_signal(int signo)
@@ -26,35 +27,35 @@ static void send_signal(int signo)
     kill(pid, signo);
 }
 
-static void handle_cmds(int argc, char *argv[])
+int main(int argc, char **argv)
 {
     if (argc != 2) {
-        usage();
-        exit(0);
+        usage(argv[0]);
+        return 0;
     }
 
     if (str_equal(argv[1], "conf")) {
         load_conf(CONF_FILE);
         conf_env_init();
         print_env();
-        return;
+        return 0;
     }
 
     if (str_equal(argv[1], "stop")) {
         send_signal(SHUTDOWN_SIGNAL);
-        return;
+        return 0;
     }
 
     if (str_equal(argv[1], "exit")) {
         send_signal(TERMINATE_SIGNAL);
-        return;
+        return 0;
     }
 
     /* unsupported command */
     if (!str_equal(argv[1], "start")) {
-        fprintf(stderr, "Unsupport command: %s\n\n", argv[1]);
-        usage();
-        exit(1);
+        fprintf(stderr, "Unknown command: %s\n\n", argv[1]);
+        usage(argv[0]);
+        return 1;
     }
 
     /* start the service */
@@ -70,11 +71,6 @@ static void handle_cmds(int argc, char *argv[])
     process_init();
     master_process_cycle();
     worker_process_cycle();
-}
-
-int main(int argc, char **argv)
-{
-    handle_cmds(argc, argv);
 
     return 0;
 }
