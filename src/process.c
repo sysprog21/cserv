@@ -77,7 +77,7 @@ static pid_t fork_worker(struct process *p)
         }
 
         if (bind_cpu(p->cpuid)) {
-            ERR("Failed to bind cpu: %d\n", p->cpuid);
+            ERR("Failed to bind cpu:%d\n", p->cpuid);
             exit(0);
         }
 
@@ -176,7 +176,7 @@ static void worker_accept_cycle(void *args __UNUSED)
 void worker_process_cycle()
 {
     if (worker_init_proc && worker_init_proc()) {
-        ERR("Failed to init worker");
+        ERR("Failed to initialize worker process");
         exit(0);
     }
 
@@ -270,18 +270,17 @@ static int create_tcp_server(const char *ip, int port)
 {
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
     if (listenfd == -1) {
-        printf("socket failed. %d %s\n", errno, strerror(errno));
+        printf("Failed to initiate socket: %s\n", strerror(errno));
         exit(0);
     }
 
     if (set_reuse_addr(listenfd)) {
-        printf("set reuse listen socket failed. %d %s\n", errno,
-               strerror(errno));
+        printf("Failed to set reuse listen socket: %s\n", strerror(errno));
         exit(0);
     }
 
     if (set_nonblock(listenfd)) {
-        printf("set listen socket non-bloack failed. %d %s\n", errno,
+        printf("Failed to set listen socket non-bloacking: %s\n",
                strerror(errno));
         exit(0);
     }
@@ -293,12 +292,12 @@ static int create_tcp_server(const char *ip, int port)
     svraddr.sin_addr.s_addr = ip_to_nl(ip);
 
     if (0 != bind(listenfd, (struct sockaddr *) &svraddr, sizeof(svraddr))) {
-        printf("bind failed. %d %s\n", errno, strerror(errno));
+        printf("Failed to bind: %s\n", strerror(errno));
         exit(0);
     }
 
     if (0 != listen(listenfd, 1000)) {
-        printf("listen failed. %d %s\n", errno, strerror(errno));
+        printf("Failed to listen: %s\n", strerror(errno));
         exit(0);
     }
 

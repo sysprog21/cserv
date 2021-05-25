@@ -95,7 +95,7 @@ void event_loop_init(int max_conn)
 
     evloop.epoll_fd = epoll_create(1024);
     if (-1 == evloop.epoll_fd) {
-        printf("Failed to create epoll. reason:%s\n", strerror(errno));
+        printf("Failed to create epoll: %s\n", strerror(errno));
         exit(0);
     }
 

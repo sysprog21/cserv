@@ -99,7 +99,7 @@ __INIT static void signal_init()
         sa.sa_handler = sig->handler;
         sigemptyset(&sa.sa_mask);
         if (sigaction(sig->signo, &sa, NULL) == -1) {
-            printf("sigaction(%d) failed\n", sig->signo);
+            printf("Failed to invoke sigaction(%d)\n", sig->signo);
             exit(0);
         }
     }
