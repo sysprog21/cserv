@@ -50,7 +50,7 @@ static void set_worker_env()
                               ? get_page_size() >> 10
                               : ALIGN(atoi(c) * 1024, get_page_size()) >> 10;
     if (g_coro_stack_kbytes <= 0 || g_coro_stack_kbytes > 10240) {
-        printf("check coroutine_stack_kbytes config: %d, should [%dKB~10MB]\n",
+        printf("check coroutine_stack_kbytes: %d, should [%dKiB~10MiB]\n",
                g_coro_stack_kbytes, get_page_size() >> 10);
         exit(0);
     }
