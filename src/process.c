@@ -44,7 +44,7 @@ static bool all_workers_exit = false; /* whether if all worker exist. */
 static bool shall_create_worker = true;
 
 int g_shall_stop = 0; /* shall we stop the service? if 0, continue */
-int g_shall_exit = 0; /* shall we forcely stop the service? */
+int g_shall_exit = 0; /* shall we force quit the service? */
 
 static int worker_empty()
 {

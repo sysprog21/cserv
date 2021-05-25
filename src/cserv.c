@@ -17,7 +17,7 @@ static void usage(const char *prog)
         "  conf  : check and show config file content\n"
         "  start : start the web server\n"
         "  stop  : stop accepting and wait for termination\n"
-        "  exit  : forcely exit\n",
+        "  exit  : force quit the server\n",
         prog);
 }
 
