@@ -19,16 +19,18 @@ I/O multiplexing is achieved using [epoll](http://man7.org/linux/man-pages/man7/
 
 ## High-level Design
 
+Process Model
 ```text
-+----------------------------------------------+
-|                                              |
-|  +-----------+   wait   +-----------------+  |  copy   +---------+
-|  |           +---------->                 +------------>         |
-|  | IO Device |    1     | Kernel's buffer |  |   2     | Process |
-|  |           <----------+                 <------------+         |
-|  +-----------+          +-----------------+  |         +---------+
-|                                              |
-+----------------------------------------------+
+    master process <-----> worker processes
+
+                    +--- non-blocking, event-driven processing engine ---+
+                    |                                                    |
+    TCP traffic --> | HTTP state machine <-+--> static content           |
+                    |                      |                             |
+                    |                      +--> cache                    |
+                    |                      |                             |
+                    |                      \--> logger                   |
+                    +----------------------------------------------------+
 ```
 
 ## Build from Source
