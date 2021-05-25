@@ -22,22 +22,16 @@ static inline int set_nonblock(int fd)
     return 0;
 }
 
-static inline int set_tcp_no_delay(int fd, int val)
-{
-    /* On success, zero is returned. On error, -1 is returned, */
-    return setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &val, sizeof(val));
-}
-
 static inline int enable_tcp_no_delay(int fd)
 {
-    return set_tcp_no_delay(fd, 1);
+    int val = 1;
+    return setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &val, sizeof(val));
 }
 
 static inline int set_keep_alive(int fd, int interval)
 {
     int val = 1;
-
-    if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val)) == -1)
+    if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val)) < 0)
         return -1;
 
     val = interval;
@@ -60,8 +54,8 @@ static inline int set_keep_alive(int fd, int interval)
 
 static inline int set_reuse_addr(int fd)
 {
-    int yes = 1;
-    if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == -1)
+    int val = 1;
+    if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0)
         return -1;
 
     return 0;
