@@ -87,7 +87,7 @@ int read_pidfile()
     char buff[32];
     FILE *fp = fopen(MASTER_PID_FILE, "r");
     if (!fp) {
-        printf("%s -> %s\n", strerror(errno), MASTER_PID_FILE);
+        printf("Failed to open %s: %s\n", MASTER_PID_FILE, strerror(errno));
         exit(0);
     }
 

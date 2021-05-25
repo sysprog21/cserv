@@ -195,7 +195,7 @@ static int gen_logfile_fd(const char *path)
         fd = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
 
     if (fd == -1) {
-        printf("%s -> %s\n", strerror(errno), path);
+        printf("Failed to open %s: %s\n", path, strerror(errno));
         exit(0);
     }
 
