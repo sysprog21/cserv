@@ -43,11 +43,13 @@ int main(int argc, char **argv)
 
     if (str_equal(argv[1], "stop")) {
         send_signal(SHUTDOWN_SIGNAL);
+	printf("cserv: stopped.\n");
         return 0;
     }
 
     if (str_equal(argv[1], "exit")) {
         send_signal(TERMINATE_SIGNAL);
+	printf("cserv: force quit.\n");
         return 0;
     }
 
@@ -69,6 +71,8 @@ int main(int argc, char **argv)
 
     tcp_srv_init();
     process_init();
+    printf("cserv: started.\n");
+
     master_process_cycle();
     worker_process_cycle();
 

@@ -183,7 +183,7 @@ void worker_process_cycle()
     schedule_init(g_coro_stack_kbytes, g_worker_connections);
     event_loop_init(g_worker_connections);
     dispatch_coro(worker_accept_cycle, NULL);
-    INFO("worker success running....");
+    INFO("worker success running...");
     schedule_cycle();
 }
 
@@ -205,7 +205,7 @@ void master_process_cycle()
         exit(0);
     }
 
-    INFO("master success running....");
+    INFO("master success running...");
 
     for (;;) {
         if (g_shall_stop == 1) {
