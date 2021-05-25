@@ -72,7 +72,7 @@ void load_conf(const char *filename)
     struct conf *head = NULL;
 
     FILE *fp = fopen(filename, "r");
-    if (NULL == fp) {
+    if (!fp) {
         printf("%s :%s\n", filename, strerror(errno));
         exit(0);
     }
@@ -83,7 +83,7 @@ void load_conf(const char *filename)
             continue;
 
         if (key.len >= CONF_KV_LEN || value.len >= CONF_KV_LEN) {
-            printf("config item too long. [%.*s] [%.*s]\n", (int) key.len,
+            printf("config entry too long. [%.*s] [%.*s]\n", (int) key.len,
                    key.p, (int) value.len, value.p);
             fclose(fp);
             exit(0);
@@ -91,7 +91,7 @@ void load_conf(const char *filename)
 
         struct conf *c = malloc(sizeof(struct conf));
         if (!c) {
-            printf("Failed to alloc mem for conf\n");
+            printf("Failed to allocate memory for config\n");
             fclose(fp);
             exit(0);
         }

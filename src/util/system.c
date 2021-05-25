@@ -52,7 +52,7 @@ void proc_title_init(char **argv)
 
     void *p = malloc(len);
     if (!p) {
-        printf("Failed to alloc environ mem\n");
+        printf("Failed to allocate environ memory\n");
         exit(0);
     }
 

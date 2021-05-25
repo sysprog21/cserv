@@ -72,7 +72,7 @@ static pid_t fork_worker(struct process *p)
         set_proc_title("cserv: worker process");
 
         if (log_worker_alloc(worker_pid) < 0) {
-            printf("Failed to alloc log for process:%d\n", worker_pid);
+            printf("Failed to allocate log for process:%d\n", worker_pid);
             exit(0);
         }
 
@@ -310,7 +310,7 @@ void tcp_srv_init()
     listen_fd = create_tcp_server(g_server_addr, g_server_port);
     accept_lock = shm_alloc(sizeof(spinlock_t));
     if (!accept_lock) {
-        printf("Failed to alloc global accept lock\n");
+        printf("Failed to allocate global accept lock\n");
         exit(0);
     }
 }
@@ -323,7 +323,7 @@ void process_init()
     set_proc_title("cserv: master process");
     create_pidfile(mastr_pid);
     if (log_worker_alloc(worker_pid) < 0) {
-        printf("Failed to alloc log for process:%d\n", worker_pid);
+        printf("Failed to allocate log for process:%d\n", worker_pid);
         exit(0);
     }
 
