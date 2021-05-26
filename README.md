@@ -2,7 +2,7 @@
 
 `cserv` is an event-driven and non-blocking web server. It ideally has one
 worker process per cpu or processor core, and each one is capable of handling
-thounds of incoming network connections per worker. There is no need to create
+thousands of incoming network connections per worker. There is no need to create
 new threads or processes for each connection.
 
 I/O multiplexing is achieved using [epoll](http://man7.org/linux/man-pages/man7/epoll.7.html).
