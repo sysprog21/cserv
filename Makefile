@@ -1,4 +1,4 @@
-.PHONY: all check clean
+.PHONY: all clean
 TARGET = cserv
 GIT_HOOKS := .git/hooks/applied
 all: $(TARGET)
@@ -52,9 +52,6 @@ deps += $(OBJS:%.o=%.o.d)
 $(TARGET): $(OBJS)
 	$(VECHO) "  LD\t$@\n"
 	$(Q)$(CC) -o $@ $^ $(LDFLAGS)
-
-check: all
-	@scripts/test.sh
 
 clean:
 	$(VECHO) "  Cleaning...\n"
