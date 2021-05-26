@@ -45,7 +45,7 @@ OBJS = \
 	src/logger.o \
 	src/process.o \
 	src/syscall_hook.o \
-	src/cserv.o
+	src/main.o
 
 deps += $(OBJS:%.o=%.o.d)
 
