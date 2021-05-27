@@ -26,20 +26,6 @@ __asm__(
     "pop %rbp\n"
     "pop %rcx\n"
     "jmp *%rcx\n"
-#elif defined(__i386__)
-#define NUM_SAVED 4
-    "push %ebp\n"
-    "push %ebx\n"
-    "push %esi\n"
-    "push %edi\n"
-    "mov %esp, (%eax)\n"
-    "mov (%edx), %esp\n"
-    "pop %edi\n"
-    "pop %esi\n"
-    "pop %ebx\n"
-    "pop %ebp\n"
-    "pop %ecx\n"
-    "jmp *%ecx\n"
 #else
 #error "unsupported architecture"
 #endif
@@ -54,10 +40,6 @@ __asm__(
     "pop %rdi\n"
     "pop %rcx\n"
     "call *%rcx\n"
-#elif defined(__i386__)
-    "pop %eax\n"
-    "pop %ecx\n"
-    "call *%ecx\n"
 #else
 #error "unsupported architecture"
 #endif
