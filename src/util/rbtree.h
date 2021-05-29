@@ -1,12 +1,14 @@
 #ifndef UTIL_RBTREE_H
 #define UTIL_RBTREE_H
 
+#include "internal.h"
+
 struct rb_node {
     unsigned long rb_parent_color;
 #define RB_RED 0
 #define RB_BLACK 1
     struct rb_node *rb_left, *rb_right;
-} __attribute__((aligned(sizeof(long))));
+} __ALIGNED(sizeof(long));
 
 struct rb_root {
     struct rb_node *rb_node;
