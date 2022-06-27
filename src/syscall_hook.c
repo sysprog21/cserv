@@ -5,23 +5,11 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+#include "syscall_hook.h"
 #include "coro/sched.h"
 #include "event.h"
 #include "internal.h"
 #include "util/net.h"
-
-typedef int (*sys_connect)(int sockfd,
-                           const struct sockaddr *addr,
-                           socklen_t addrlen);
-typedef int (*sys_accept)(int sockfd,
-                          struct sockaddr *addr,
-                          socklen_t *addrlen);
-
-typedef ssize_t (*sys_read)(int fd, void *buf, size_t count);
-typedef ssize_t (*sys_recv)(int sockfd, void *buf, size_t len, int flags);
-
-typedef ssize_t (*sys_write)(int fd, const void *buf, size_t count);
-typedef ssize_t (*sys_send)(int sockfd, const void *buf, size_t len, int flags);
 
 #define HOOK_SYSCALL(name) \
     real_sys_##name = (sys_##name) dlsym(RTLD_NEXT, #name)
@@ -43,7 +31,7 @@ static sys_accept real_sys_accept = NULL;
 static sys_read real_sys_read = NULL;
 static sys_recv real_sys_recv = NULL;
 
-sys_write real_sys_write = NULL; /* shared with log.c */
+sys_write real_sys_write = NULL;
 static sys_send real_sys_send = NULL;
 
 #define fd_not_ready() ((EAGAIN == errno) || (EWOULDBLOCK == errno))

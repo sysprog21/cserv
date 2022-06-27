@@ -11,6 +11,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "syscall_hook.h"
 #include "env.h"
 #include "internal.h"
 #include "logger.h"
@@ -64,9 +65,6 @@ static enum LOG_LEVEL log_str_level(const char *level)
     printf("unknow log level. %s\n", level);
     exit(0);
 }
-
-/* FIXME: move the prototype to dedicated header */
-extern ssize_t (*real_sys_write)(int fd, const void *buf, size_t count);
 
 static void log_flush()
 {
