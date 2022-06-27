@@ -1,52 +1,17 @@
-#define _GNU_SOURCE
-#include <dlfcn.h>
-#include <errno.h>
-#include <sys/socket.h>
-#include <sys/uio.h>
-#include <unistd.h>
-
+#include "syscall_hook.h"
 #include "coro/sched.h"
 #include "event.h"
 #include "internal.h"
 #include "util/net.h"
 
-typedef int (*sys_connect)(int sockfd,
-                           const struct sockaddr *addr,
-                           socklen_t addrlen);
-typedef int (*sys_accept)(int sockfd,
-                          struct sockaddr *addr,
-                          socklen_t *addrlen);
+sys_connect real_sys_connect = NULL;
+sys_accept real_sys_accept = NULL;
 
-typedef ssize_t (*sys_read)(int fd, void *buf, size_t count);
-typedef ssize_t (*sys_recv)(int sockfd, void *buf, size_t len, int flags);
+sys_read real_sys_read = NULL;
+sys_recv real_sys_recv = NULL;
 
-typedef ssize_t (*sys_write)(int fd, const void *buf, size_t count);
-typedef ssize_t (*sys_send)(int sockfd, const void *buf, size_t len, int flags);
-
-#define HOOK_SYSCALL(name) \
-    real_sys_##name = (sys_##name) dlsym(RTLD_NEXT, #name)
-
-#define CONN_TIMEOUT (10 * 1000)
-#define ACCEPT_TIMEOUT (3 * 1000)
-
-#define READ_TIMEOUT (10 * 1000)
-#define RECV_TIMEOUT (10 * 1000)
-
-#define WRITE_TIMEOUT (10 * 1000)
-#define SEND_TIMEOUT (10 * 1000)
-
-#define KEEP_ALIVE 60
-
-static sys_connect real_sys_connect = NULL;
-static sys_accept real_sys_accept = NULL;
-
-static sys_read real_sys_read = NULL;
-static sys_recv real_sys_recv = NULL;
-
-sys_write real_sys_write = NULL; /* shared with log.c */
-static sys_send real_sys_send = NULL;
-
-#define fd_not_ready() ((EAGAIN == errno) || (EWOULDBLOCK == errno))
+sys_write real_sys_write = NULL;
+sys_send real_sys_send = NULL;
 
 static void event_rw_callback(void *args)
 {
@@ -188,7 +153,6 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags)
 ssize_t write(int fd, const void *buf, size_t count)
 {
     ssize_t n;
-
     while ((n = real_sys_write(fd, buf, count)) < 0) {
         if (EINTR == errno)
             continue;

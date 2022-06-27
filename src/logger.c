@@ -14,6 +14,7 @@
 #include "env.h"
 #include "internal.h"
 #include "logger.h"
+#include "syscall_hook.h"
 #include "util/cirbuf.h"
 #include "util/shm.h"
 #include "util/spinlock.h"
@@ -66,7 +67,7 @@ static enum LOG_LEVEL log_str_level(const char *level)
 }
 
 /* FIXME: move the prototype to dedicated header */
-extern ssize_t (*real_sys_write)(int fd, const void *buf, size_t count);
+//extern ssize_t (*real_sys_write)(int fd, const void *buf, size_t count);
 
 static void log_flush()
 {
