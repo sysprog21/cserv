@@ -10,8 +10,21 @@ sys_accept real_sys_accept = NULL;
 sys_read real_sys_read = NULL;
 sys_recv real_sys_recv = NULL;
 
+<<<<<<< HEAD
 sys_write real_sys_write = NULL;
 sys_send real_sys_send = NULL;
+=======
+static sys_connect real_sys_connect = NULL;
+static sys_accept real_sys_accept = NULL;
+
+static sys_read real_sys_read = NULL;
+static sys_recv real_sys_recv = NULL;
+
+sys_write real_sys_write = NULL;
+static sys_send real_sys_send = NULL;
+
+#define fd_not_ready() ((EAGAIN == errno) || (EWOULDBLOCK == errno))
+>>>>>>> 88603ac... Remove meaningless comment
 
 static void event_rw_callback(void *args)
 {
