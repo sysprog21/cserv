@@ -11,10 +11,10 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "syscall_hook.h"
 #include "env.h"
 #include "internal.h"
 #include "logger.h"
+#include "syscall_hook.h"
 #include "util/cirbuf.h"
 #include "util/shm.h"
 #include "util/spinlock.h"

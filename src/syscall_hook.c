@@ -5,10 +5,10 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
-#include "syscall_hook.h"
 #include "coro/sched.h"
 #include "event.h"
 #include "internal.h"
+#include "syscall_hook.h"
 #include "util/net.h"
 
 #define HOOK_SYSCALL(name) \
