@@ -160,7 +160,7 @@ void log_worker_flush_and_reset(int pid)
     spin_unlock(logger_lock);
 }
 
-static struct log_desc desc;
+static struct log_desc logdesc;
 
 void log_out(enum LOG_LEVEL level,
              const char *file,
@@ -171,16 +171,16 @@ void log_out(enum LOG_LEVEL level,
     if (level > log_level)
         return;
 
-    desc.log = &log_object[logger_id];
-    desc.file = file, desc.line = line;
-    desc.level = level;
+    logdesc.log = &log_object[logger_id];
+    logdesc.file = file, logdesc.line = line;
+    logdesc.level = level;
 
     va_list ap;
     va_start(ap, fmt);
-    vsnprintf(desc.msg, sizeof(desc.msg), fmt, ap);
+    vsnprintf(logdesc.msg, sizeof(logdesc.msg), fmt, ap);
     va_end(ap);
 
-    cirbuf_write(&desc.log->queue, &desc);
+    cirbuf_write(&logdesc.log->queue, &logdesc);
 }
 
 static int gen_logfile_fd(const char *path)
