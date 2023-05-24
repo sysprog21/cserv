@@ -12,7 +12,7 @@ static int worker_process_init()
     char *c = get_conf_entry("client_header_buffer_kbytes");
     if (!str_equal(c, "default")) {
         size = atoi(c);
-        if (size <= 0 || size > 4) {
+        if (size == 0 || size > 4) {
             ERR("client header buffer size should between [1-4]KiB");
             return -1;
         }
