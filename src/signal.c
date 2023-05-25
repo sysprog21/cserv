@@ -10,7 +10,6 @@
 
 struct sys_signal {
     int signo;
-    char *name;
     void (*handler)(int signo);
 };
 
@@ -60,14 +59,12 @@ static void worker_signal_handler(int signo)
 
 static void signal_handler(int signo);
 
-static struct sys_signal signals[] = {{SIGQUIT, "stop", signal_handler},
-                                      {SIGTERM, "force-quit", signal_handler},
-                                      {SIGINT, "force-quit", signal_handler},
-                                      {SIGHUP, "reload", signal_handler},
-                                      {SIGCHLD, "default", signal_handler},
-                                      {SIGSYS, "ignored", SIG_IGN},
-                                      {SIGPIPE, "ignored", SIG_IGN},
-                                      {0, "", NULL}};
+static struct sys_signal signals[] = {
+    {SIGQUIT, signal_handler}, {SIGTERM, signal_handler},
+    {SIGINT, signal_handler},  {SIGHUP, signal_handler},
+    {SIGCHLD, signal_handler}, {SIGSYS, SIG_IGN},
+    {SIGPIPE, SIG_IGN},        {0, NULL},
+};
 
 static void signal_handler(int signo)
 {
