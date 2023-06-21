@@ -26,6 +26,28 @@ __asm__(
     "pop %rbp\n"
     "pop %rcx\n"
     "jmp *%rcx\n"
+#elif defined(__aarch64__)
+#define NUM_SAVED 11
+    "sub sp, sp, #96\n"
+    "mov x8, sp\n"
+    "stp x19, x20, [x8], #16\n"  // store callee-saved registers
+    "stp x21, x22, [x8], #16\n"
+    "stp x23, x24, [x8], #16\n"
+    "stp x25, x26, [x8], #16\n"
+    "stp x27, x28, [x8], #16\n"
+    "stp x29, lr, [x8], #16\n"
+    "mov x8, sp\n"
+    "str x8, [x0]\n"
+    "ldr x8, [x1]\n"
+    "mov sp, x8\n"
+    "ldp x19, x20, [x8], #16\n"  // restore callee-saved registers
+    "ldp x21, x22, [x8], #16\n"
+    "ldp x23, x24, [x8], #16\n"
+    "ldp x25, x26, [x8], #16\n"
+    "ldp x27, x28, [x8], #16\n"
+    "ldp x29, lr, [x8], #16\n"
+    "mov sp, x8\n"
+    "br lr\n"
 #else
 #error "unsupported architecture"
 #endif
@@ -35,11 +57,19 @@ void coro_routine_entry();
 
 __asm__(
     ".text\n"
+#if defined(__aarch64__)
+    ".globl coro_routine_entry\n"
+#endif
     "coro_routine_entry:\n"
 #if defined(__x86_64__)
     "pop %rdi\n"
     "pop %rcx\n"
     "call *%rcx\n"
+#elif defined(__aarch64__)
+    "mov x8, sp\n"
+    "ldp x0, x9, [x8], #16\n"
+    "mov sp, x8\n"
+    "blr x9\n"
 #else
 #error "unsupported architecture"
 #endif
