@@ -154,6 +154,9 @@ static void move_to_inactive_tree(struct coroutine *coro)
     struct timer_node *tmp = memcache_alloc(sched.cache);
     if (unlikely(!tmp)) /* still in active list */
         return;
+    tmp->root = RB_ROOT;
+    tmp->node.rb_left = NULL;
+    tmp->node.rb_right = NULL;
 
     tmp->timeout = coro->timeout;
     add_to_timer_node(tmp, coro);
