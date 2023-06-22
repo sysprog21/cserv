@@ -1,5 +1,4 @@
-#ifndef CORE_LOGGER_H
-#define CORE_LOGGER_H
+#pragma once
 
 enum LOG_LEVEL {
     LEVEL_CRIT = 0,
@@ -25,5 +24,3 @@ void log_out(enum LOG_LEVEL level,
              const char *fmt,
              ...);
 void log_init();
-
-#endif

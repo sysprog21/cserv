@@ -1,5 +1,4 @@
-#ifndef CORE_PROCESS_H
-#define CORE_PROCESS_H
+#pragma once
 
 #include <signal.h>
 
@@ -28,5 +27,3 @@ void worker_exit_handler(int pid);
 
 void tcp_srv_init();
 void process_init();
-
-#endif

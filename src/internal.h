@@ -1,5 +1,4 @@
-#ifndef INTERNAL_H
-#define INTERNAL_H
+#pragma once
 
 /* Branch predictor */
 #define likely(x) __builtin_expect(!!(x), 1)
@@ -24,5 +23,3 @@
 
 /* Misc */
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CORO_SWITCH_H
-#define CORO_SWITCH_H
+#pragma once
 
 struct coro_stack {
     void *ptr;
@@ -21,5 +20,3 @@ void coro_stack_init(struct context *ctx,
                      void *args);
 int coro_stack_alloc(struct coro_stack *stack, size_t size_bytes);
 void coro_stack_free(struct coro_stack *stack);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef UTIL_SYSTEM_H
-#define UTIL_SYSTEM_H
+#pragma once
 
 #include <sys/time.h>
 
@@ -18,5 +17,3 @@ void delete_pidfile();
 
 struct tm *get_tm();
 long long get_curr_mseconds();
-
-#endif

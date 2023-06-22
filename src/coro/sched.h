@@ -1,5 +1,4 @@
-#ifndef CORO_SCHED_H
-#define CORO_SCHED_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -15,5 +14,3 @@ void wakeup_coro_priority(void *args);
 void *current_coro();
 
 void schedule_init(size_t stack_kbytes, size_t max_coro_size);
-
-#endif

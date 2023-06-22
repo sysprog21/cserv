@@ -1,5 +1,4 @@
-#ifndef UTIL_HASHTABLE_H
-#define UTIL_HASHTABLE_H
+#pragma once
 
 #include "util/list.h"
 
@@ -21,5 +20,3 @@ void *hash_table_find(struct hash_table *ht, unsigned key);
 void *hash_table_remove(struct hash_table *ht, unsigned key);
 int hash_table_add(struct hash_table *ht, unsigned key, void *obj);
 struct hash_table *hash_table_create(unsigned bucket_size);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef UTIL_STR_H
-#define UTIL_STR_H
+#pragma once
 
 #include <string.h>
 
@@ -48,5 +47,3 @@ static inline int str_atoi(str_t *s)
 
     return val;
 }
-
-#endif

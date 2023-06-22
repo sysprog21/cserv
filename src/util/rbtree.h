@@ -1,5 +1,4 @@
-#ifndef UTIL_RBTREE_H
-#define UTIL_RBTREE_H
+#pragma once
 
 #include "internal.h"
 
@@ -58,5 +57,3 @@ static inline void rb_link_node(struct rb_node *node,
 
     *rb_link = node;
 }
-
-#endif

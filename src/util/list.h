@@ -1,5 +1,4 @@
-#ifndef UTIL_LIST_H
-#define UTIL_LIST_H
+#pragma once
 
 #include <stddef.h>
 
@@ -114,5 +113,3 @@ static inline int list_empty(const struct list_head *head)
     for (pos = list_entry((head)->next, typeof(*pos), member); \
          &pos->member != (head);                               \
          pos = list_entry(pos->member.next, typeof(*pos), member))
-
-#endif

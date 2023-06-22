@@ -1,5 +1,4 @@
-#ifndef UTIL_NET_H
-#define UTIL_NET_H
+#pragma once
 
 #include <arpa/inet.h>
 #include <fcntl.h>
@@ -89,5 +88,3 @@ static inline unsigned ip_to_nl(const char *ip)
 
     return s.s_addr;
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CORE_ENV_H
-#define CORE_ENV_H
+#pragma once
 
 /* associated with configurations */
 extern char *g_log_path;
@@ -14,5 +13,3 @@ extern int g_server_port;
 
 void print_env();
 void conf_env_init();
-
-#endif

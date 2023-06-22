@@ -1,5 +1,4 @@
-#ifndef CORE_EVENT_H
-#define CORE_EVENT_H
+#pragma once
 
 typedef enum {
     EVNET_NONE = 0x0,
@@ -14,5 +13,3 @@ void del_fd_event(int fd, event_t what);
 
 void event_cycle(int milliseconds);
 void event_loop_init(int max_conn);
-
-#endif

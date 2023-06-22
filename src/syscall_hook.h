@@ -1,5 +1,4 @@
-#ifndef CORE_SYSCALL_HOOK_H
-#define CORE_SYSCALL_HOOK_H
+#pragma once
 
 #include <sys/socket.h>
 
@@ -18,5 +17,3 @@ typedef ssize_t (*sys_send)(int sockfd, const void *buf, size_t len, int flags);
 
 /* declared in syscall_hook.c */
 extern sys_write real_sys_write;
-
-#endif

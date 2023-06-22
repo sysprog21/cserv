@@ -1,5 +1,4 @@
-#ifndef HTTP_RESPONSE_H
-#define HTTP_RESPONSE_H
+#pragma once
 
 #include "http/request.h"
 
@@ -52,5 +51,3 @@
 
 void http_fast_response(int fd, const char *content, size_t len);
 void http_finalize_request(struct http_request *r, int ret_code);
-
-#endif

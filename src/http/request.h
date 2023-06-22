@@ -1,5 +1,4 @@
-#ifndef HTTP_REQUEST_H
-#define HTTP_REQUEST_H
+#pragma once
 
 #include "util/buffer.h"
 #include "util/str.h"
@@ -120,5 +119,3 @@ void http_request_init(size_t client_header_buffer_kbytes,
                        struct request_line_handler *line_handler,
                        struct request_header_handler *header_handler,
                        http_request_body_handler_t body_handler);
-
-#endif

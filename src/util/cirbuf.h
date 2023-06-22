@@ -1,5 +1,4 @@
-#ifndef UTIL_CIRBUF_H
-#define UTIL_CIRBUF_H
+#pragma once
 
 /* circular buffer implementation */
 
@@ -76,4 +75,3 @@ static inline void cirbuf_init(struct cirbuf *queue,
     queue->read_cb = read_cb;
     queue->write_cb = write_cb;
 }
-#endif

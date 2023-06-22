@@ -1,5 +1,4 @@
-#ifndef UTIL_SPINLOCK_H
-#define UTIL_SPINLOCK_H
+#pragma once
 
 /* Ticket spinlock implementation */
 
@@ -46,5 +45,3 @@ static inline void spin_unlock(spinlock_t *lock)
     atomic_thread_fence(memory_order_seq_cst);
     lock->start++;
 }
-
-#endif
