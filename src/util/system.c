@@ -9,7 +9,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "internal.h"
 #include "util/system.h"
 
 static char **__argv;

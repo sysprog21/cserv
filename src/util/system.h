@@ -2,8 +2,6 @@
 
 #include <sys/time.h>
 
-#include "internal.h"
-
 int get_page_size() __CONST;
 int get_ncpu() __CONST;
 

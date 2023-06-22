@@ -4,7 +4,6 @@
 #include <string.h>
 #include <sys/wait.h>
 
-#include "internal.h"
 #include "logger.h"
 #include "process.h"
 

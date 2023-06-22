@@ -2,7 +2,6 @@
 
 #include "http/request.h"
 #include "http/response.h"
-#include "internal.h"
 #include "logger.h"
 #include "util/str.h"
 

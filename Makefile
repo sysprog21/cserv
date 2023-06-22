@@ -12,6 +12,7 @@ include common.mk
 CFLAGS = -I./src
 CFLAGS += -O2 -g
 CFLAGS += -std=gnu11 -Wall -W
+CFLAGS += -include src/common.h
 
 # Configurations
 CFLAGS += -D CONF_FILE="\"conf/cserv.conf\""

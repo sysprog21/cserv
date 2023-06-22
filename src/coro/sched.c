@@ -6,7 +6,6 @@
 #include "coro/sched.h"
 #include "coro/switch.h"
 #include "event.h"
-#include "internal.h"
 #include "util/list.h"
 #include "util/memcache.h"
 #include "util/rbtree.h"

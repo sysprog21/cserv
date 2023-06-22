@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <sys/mman.h>
 
-#include "internal.h"
 #include "util/shm.h"
 #include "util/spinlock.h"
 #include "util/system.h"

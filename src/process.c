@@ -10,7 +10,6 @@
 #include "coro/sched.h"
 #include "env.h"
 #include "event.h"
-#include "internal.h"
 #include "logger.h"
 #include "process.h"
 #include "util/net.h"

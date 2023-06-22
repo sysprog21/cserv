@@ -1,7 +1,5 @@
 #pragma once
 
-#include "internal.h"
-
 struct rb_node {
     unsigned long rb_parent_color;
 #define RB_RED 0

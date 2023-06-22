@@ -12,7 +12,6 @@
 #include <unistd.h>
 
 #include "env.h"
-#include "internal.h"
 #include "logger.h"
 #include "syscall_hook.h"
 #include "util/cirbuf.h"

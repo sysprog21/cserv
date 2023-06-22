@@ -1,7 +1,6 @@
 #include <stdlib.h>
 
 #include "http/request.h"
-#include "internal.h"
 #include "logger.h"
 #include "process.h"
 #include "util/conf.h"

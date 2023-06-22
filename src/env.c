@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 #include "env.h"
-#include "internal.h"
 #include "util/conf.h"
 #include "util/str.h"
 #include "util/system.h"

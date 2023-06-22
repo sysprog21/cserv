@@ -7,7 +7,6 @@
 
 #include "coro/sched.h"
 #include "event.h"
-#include "internal.h"
 #include "syscall_hook.h"
 #include "util/net.h"
 
