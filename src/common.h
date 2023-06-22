@@ -21,5 +21,11 @@
 #define __UNUSED __attribute__((unused))
 #define __CONST __attribute__((const))
 
+#if defined(__i386__) || defined(__x86_64__)
+#define ATTRIBUTE_REGPARM(n) __attribute__((regparm((n))))
+#else
+#define ATTRIBUTE_REGPARM(n)
+#endif
+
 /* Misc */
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))

@@ -313,7 +313,7 @@ void schedule_cycle()
     }
 }
 
-static __attribute__((__regparm__(1))) void coro_routine_proxy(void *args)
+static ATTRIBUTE_REGPARM(1) void coro_routine_proxy(void *args)
 {
     struct coroutine *coro = args;
 

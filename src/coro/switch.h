@@ -9,10 +9,10 @@ struct context {
     void **sp; /* current coroutine's top stack. equivalent to %esp / %rsp */
 };
 
-typedef void (*coro_routine)(void *args) __attribute__((__regparm__(1)));
+typedef void (*coro_routine)(void *args) ATTRIBUTE_REGPARM(1);
 
 void context_switch(struct context *prev, struct context *next)
-    __attribute__((__noinline__, __regparm__(2)));
+    __attribute__((__noinline__, ATTRIBUTE_REGPARM(2)));
 
 void coro_stack_init(struct context *ctx,
                      struct coro_stack *stack,
