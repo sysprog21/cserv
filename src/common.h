@@ -27,5 +27,11 @@
 #define ATTRIBUTE_REGPARM(n)
 #endif
 
+#if __has_attribute(__fallthrough__)
+#define fallthrough __attribute__((__fallthrough__))
+#else
+#define fallthrough do {} while (0)  /* fallthrough */
+#endif
+
 /* Misc */
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))

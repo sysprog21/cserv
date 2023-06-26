@@ -212,12 +212,14 @@ int http_parse_request_line(struct http_request *r, struct buffer *b)
                 break;
             }
             state = S_host;
+            fallthrough;
         case S_host:
             c = (unsigned char) (ch | 0x20);
             if (c >= 'a' && c <= 'z')
                 break;
             if ((ch >= '0' && ch <= '9') || ch == '.' || ch == '-')
                 break;
+            fallthrough;
         case S_host_end:
             r->host.len = p - r->host.p;
             switch (ch) {
