@@ -1,11 +1,6 @@
 .PHONY: all clean
 TARGET = cserv
-GIT_HOOKS := .git/hooks/applied
 all: $(TARGET)
-
-$(GIT_HOOKS):
-	@scripts/install-git-hooks
-	@echo
 
 include common.mk
 
