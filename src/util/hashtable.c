@@ -43,8 +43,7 @@ int hash_table_add(struct hash_table *ht, unsigned key, void *object)
 {
     struct hash_element *loop;
     struct list_head *bucket = &ht->buckets[key % ht->bucket_size];
-    struct hash_element *elem =
-        (struct hash_element *) malloc(sizeof(struct hash_element));
+    struct hash_element *elem = malloc(sizeof(struct hash_element));
     if (!elem)
         return -1;
 
