@@ -27,7 +27,7 @@ struct coroutine {
     void *args; /* associated with coroutine function */
 
     long long timeout; /* track the timeout of events */
-    int active_by_timeout;
+    bool active_by_timeout;
 };
 
 /* sched policy, if timeout == -1, sched policy can wait forever */
@@ -190,7 +190,7 @@ static inline void coroutine_init(struct coroutine *coro)
     INIT_LIST_HEAD(&coro->list);
     RB_CLEAR_NODE(&coro->node);
     coro->timeout = 0;
-    coro->active_by_timeout = -1;
+    coro->active_by_timeout = false;
 }
 
 static struct coroutine *create_coroutine()
@@ -275,7 +275,7 @@ static inline void timeout_coroutine_handler(struct timer_node *node)
     while ((recent = node->root.rb_node)) {
         struct coroutine *coro = container_of(recent, struct coroutine, node);
         rb_erase(recent, &node->root);
-        coro->active_by_timeout = 1;
+        coro->active_by_timeout = true;
         move_to_active_list_tail_direct(coro);
     }
 }
@@ -350,17 +350,17 @@ void schedule_timeout(int milliseconds)
 
 bool is_wakeup_by_timeout()
 {
-    int result = sched.current->active_by_timeout;
-    sched.current->active_by_timeout = -1;
+    bool result = sched.current->active_by_timeout;
+    sched.current->active_by_timeout = false;
 
-    return result == 1;
+    return result;
 }
 
 void wakeup_coro(void *args)
 {
     struct coroutine *coro = args;
 
-    coro->active_by_timeout = -1;
+    coro->active_by_timeout = false;
     move_to_active_list_tail(coro);
 }
 
@@ -368,7 +368,7 @@ void wakeup_coro_priority(void *args)
 {
     struct coroutine *coro = args;
 
-    coro->active_by_timeout = -1;
+    coro->active_by_timeout = false;
     move_to_active_list_head(coro);
 }
 
