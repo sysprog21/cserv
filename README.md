@@ -13,7 +13,7 @@ I/O multiplexing is achieved using [epoll](http://man7.org/linux/man-pages/man7/
 * Multi-core support with processor affinity
 * Implement load balancing among processes
 * Hook and optimize blocking socket system calls
-* Faciliate coroutines for fast task switching
+* Facilitate coroutines for fast task switching
 * Efficient timeout handling
 * Builtin memcache service 
 
